@@ -154,6 +154,10 @@ class fvvdp_display_photo_eotf(fvvdp_display_photometry):
                 
         if self.EOTF=='sRGB':
             L = (self.Y_peak-Y_black)*srgb2lin(V) + Y_black
+        elif self.EOTF == 'AR':
+            L = (self.Y_peak-Y_black)*V + Y_black + self.E_ambient
+        elif self.EOTF == 'linear2':
+            L = (self.Y_peak-Y_black)*V + Y_black
         elif self.EOTF=='gamma':
             L = (self.Y_peak-Y_black)*torch.pow(V, self.gamma) + Y_black
         elif self.EOTF=='PQ':
